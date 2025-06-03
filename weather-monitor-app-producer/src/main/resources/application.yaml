@@ -1,3 +1,9 @@
 weather:
     api:
         key: ${WEATHER_API_KEY}
+
+spring:
+  kafka:
+    bootstrap-servers: broker:9092
+    producer:
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
