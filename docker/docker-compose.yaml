@@ -23,3 +23,6 @@ services:
     build: ../weather-monitor-app-producer/
     environment:
       WEATHER_API_KEY: ${WEATHER_API_KEY}
+
+  consumer:
+    build: ../weather-monitor-app-consumer/
