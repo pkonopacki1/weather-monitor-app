@@ -1,4 +1,4 @@
-package com.pkonopacki1.weather_monitor_app_consumer.rest.model;
+package com.pkonopacki1.common.model;
 
 import lombok.Getter;
 import lombok.Setter;

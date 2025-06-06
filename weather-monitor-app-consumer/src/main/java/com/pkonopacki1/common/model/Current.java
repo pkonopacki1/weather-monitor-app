@@ -1,10 +1,12 @@
-package com.pkonopacki1.weather_monitor_app_producer.rest.model;
+package com.pkonopacki1.common.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class Current {
     private long last_updated_epoch;
     private String last_updated;

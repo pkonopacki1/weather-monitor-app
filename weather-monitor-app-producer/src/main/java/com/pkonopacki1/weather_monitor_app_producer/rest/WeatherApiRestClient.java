@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-import com.pkonopacki1.weather_monitor_app_producer.rest.model.WeatherResponse;
+import com.pkonopacki1.common.model.WeatherResponse;
 
 @Component
 public class WeatherApiRestClient {

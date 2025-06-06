@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.pkonopacki1.common.model.WeatherResponse;
 import com.pkonopacki1.weather_monitor_app_producer.rest.WeatherApiRestClient;
-import com.pkonopacki1.weather_monitor_app_producer.rest.model.WeatherResponse;
 
 import lombok.extern.java.Log;
 
