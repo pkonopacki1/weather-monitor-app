@@ -21,3 +21,19 @@ Prerequisites:
    `./run.sh`
 
 This will create containers: broker, producer and consumer.
+
+## Running locally (e.g. for debugging)
+
+1. Create kafka broker:
+   `docker compose up -d broker`
+2. Create topic:
+
+  ```shell
+  docker exec -it broker /opt/kafka/bin/kafka-topics.sh \
+--create \
+--topic weather.report \
+--bootstrap-server broker:9092 \
+--partitions 3
+  ```
+
+3. Run the applications

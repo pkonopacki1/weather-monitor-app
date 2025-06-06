@@ -5,7 +5,7 @@ weather:
 
 spring:
   kafka:
-    bootstrap-servers: broker:9092
+    bootstrap-servers: ${BROKER_CONFIG:http://localhost:9092}
     producer:
         value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
