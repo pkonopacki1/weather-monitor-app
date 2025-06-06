@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import com.pkonopacki1.common.model.WeatherResponse;
 import com.pkonopacki1.weather_monitor_app_producer.rest.WeatherApiRestClient;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 @EnableScheduling
-@Log
+@Slf4j
 @Component
 public class WeatherKafkaTemplate {
 
@@ -36,7 +36,7 @@ public class WeatherKafkaTemplate {
 
     weatherReport.ifPresent((body) -> {
       template.send("weather.report", city, body);
-      log.info(String.format("Message regarding %s was sent", city));
+      log.info("Message regarding {} was sent", city);
     });
   }
 
