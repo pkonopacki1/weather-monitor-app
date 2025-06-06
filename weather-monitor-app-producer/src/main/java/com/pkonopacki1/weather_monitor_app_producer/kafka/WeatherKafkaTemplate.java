@@ -1,6 +1,10 @@
 package com.pkonopacki1.weather_monitor_app_producer.kafka;
 
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,20 +20,24 @@ import lombok.extern.java.Log;
 @Component
 public class WeatherKafkaTemplate {
 
-    @Autowired
-    private KafkaTemplate<String, WeatherResponse> template;
+  @Value("${weather.api.cities}")
+  private List<String> cities;
 
-    @Autowired
-    private WeatherApiRestClient restClient;
+  @Autowired
+  private KafkaTemplate<String, WeatherResponse> template;
 
-    @Scheduled(fixedRate = 1000)
-    public void publish() {
-        var weatherReport = restClient.getCityWeather("Poznan");
+  @Autowired
+  private WeatherApiRestClient restClient;
 
-        weatherReport.ifPresent((body) -> {
-            template.send("weather.report", body);
-            log.info("Message sent successfully");
-        });
-    }
+  @Scheduled(fixedRateString = "${app.fixed-rate}")
+  public void publish() {
+    String city = cities.get(new Random().nextInt(cities.size()));
+    var weatherReport = restClient.getCityWeather(city);
+
+    weatherReport.ifPresent((body) -> {
+      template.send("weather.report", city, body);
+      log.info(String.format("Message regarding %s was sent", city));
+    });
+  }
 
 }
