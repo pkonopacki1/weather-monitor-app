@@ -14,6 +14,7 @@ Application monitoring weather in a given city.
 Prerequisites:
 - docker
 - mvn
+- api key for [weather api](https://www.weatherapi.com/my/)
 
 1. Export weather api key
    `export WEATHER_API_KEY=<API_KEY>`
