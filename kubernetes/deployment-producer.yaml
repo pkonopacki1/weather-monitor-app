@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-deployment
+  labels:
+    app: producer-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: producer-deployment
+  template:
+    metadata:
+      labels:
+        app: producer-deployment
+    spec:
+      containers:
+        - name: producer-app
+          image: weather-app-producer
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: WEATHER_API_KEY
+              value:
+            - name: BROKER_CONFIG
+              value: host.docker.internal:9092

@@ -9,19 +9,20 @@ Application monitoring weather in a given city.
 
 ![Containers diagram](diagram.drawio.png)
 
-## Running the application in docker containers
+## Running the application in kubernetes
 
 Prerequisites:
 - docker
+- minikube
 - mvn
 - api key for [weather api](https://www.weatherapi.com/my/)
 
-1. Export weather api key
-   `export WEATHER_API_KEY=<API_KEY>`
+1. Set WEATHER_API_KEY in the `kubernetes/deployment-producer.yaml`
 2. Run the script:
    `./run.sh`
 
-This will create containers: broker, producer and consumer.
+This will create deployments: producer and consumer. Use chosen tool (k9s or kctl) to see the consumer logs to confirm
+that the messages are being consumed.
 
 ## Running locally (e.g. for debugging)
 

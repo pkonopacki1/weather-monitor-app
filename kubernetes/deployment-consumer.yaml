@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-deployment
+  labels:
+    app: consumer-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: consumer-deployment
+  template:
+    metadata:
+      labels:
+        app: consumer-deployment
+    spec:
+      containers:
+        - name: consumer-app
+          image: weather-app-consumer
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BROKER_CONFIG
+              value: host.docker.internal:9092

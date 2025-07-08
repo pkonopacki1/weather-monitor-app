@@ -6,7 +6,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_LISTENERS: CONTROLLER://localhost:9093,PLAINTEXT://broker:29092,PLAINTEXT_HOST://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://host.docker.internal:9092 # To make it reachable for the cluster deployed in miniukube
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
@@ -21,12 +21,14 @@ services:
 
 
   producer:
+    image: weather-app-producer
     build: ../weather-monitor-app-producer/
     environment:
       WEATHER_API_KEY: ${WEATHER_API_KEY}
-      BROKER_CONFIG: "broker:29092"
+      BROKER_CONFIG: ${BROKER_CONFIG}
 
   consumer:
+    image: weather-app-consumer
     build: ../weather-monitor-app-consumer/
     environment:
-      BROKER_CONFIG: "broker:29092"
+      BROKER_CONFIG: ${BROKER_CONFIG}

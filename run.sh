@@ -5,12 +5,15 @@ mvn clean package
 cd ../weather-monitor-app-producer
 mvn clean package
 cd ../docker
+docker compose build
+minikube start --nodes=3
+echo "Loading producer image to minikube..."
+minikube image load weather-app-producer
+echo "✅ Done!"
+echo "Loading consumer image to minikube..."
+minikube image load weather-app-consumer
+echo "✅ Done!"
 docker compose up -d broker
-
-docker exec -it broker /opt/kafka/bin/kafka-topics.sh \
-  --create \
-  --topic weather.report \
-  --bootstrap-server broker:9092 \
-  --partitions 3
-
-docker compose up -d producer consumer
+cd ../kubernetes
+kubectl apply -f deployment-producer.yaml
+kubectl apply -f deployment-consumer.yaml
