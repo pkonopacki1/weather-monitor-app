@@ -20,4 +20,4 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: BROKER_CONFIG
-              value: host.docker.internal:9092
+              value: my-cluster-kafka-bootstrap:9092
