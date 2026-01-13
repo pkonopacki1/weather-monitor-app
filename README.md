@@ -12,8 +12,10 @@ Application monitoring weather in a given city.
 ## Running the application in kubernetes
 
 Prerequisites:
+
 - docker
 - minikube
+- kubernetes and helm
 - mvn
 - api key for [weather api](https://www.weatherapi.com/my/)
 

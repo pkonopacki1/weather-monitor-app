@@ -1,19 +1,33 @@
 #! /bin/bash
 
+echo "📝 Script starts..."
+echo "📝 Package consumer application..."
 cd weather-monitor-app-consumer
-mvn clean package
+mvn clean package -q
+echo "✅ Done!"
+echo "📝 Package produicer application..."
 cd ../weather-monitor-app-producer
-mvn clean package
+mvn clean package -q
+echo "✅ Done!"
 cd ../docker
+echo "📝 Building docker images..."
 docker compose build
-minikube start --nodes=3
-echo "Loading producer image to minikube..."
+echo "✅ Done!"
+echo "📝 Strarting minikube cluster..."
+minikube start --nodes=1
 minikube image load weather-app-producer
 echo "✅ Done!"
-echo "Loading consumer image to minikube..."
+echo "📝Loading consumer image to minikube..."
 minikube image load weather-app-consumer
 echo "✅ Done!"
-docker compose up -d broker
+echo "📝Installing kafka server on the kubernetes cluster..."
+kubectl create namespace kafka
+helm install strimzi-cluster-operator oci://quay.io/strimzi-helm/strimzi-kafka-operator -n kafka
 cd ../kubernetes
+kubectl apply -f kafka-single-node.yaml
+echo "✅ Kafka cluster installed!"
+kubectl create namespace weather
 kubectl apply -f deployment-producer.yaml
 kubectl apply -f deployment-consumer.yaml
+echo "✅ Consumer and prodcuer applications installed to the K8s cluster!"
+echo "✅ The scripts has completed!"

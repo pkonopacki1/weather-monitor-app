@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: consumer-deployment
+  namespace: weather
   labels:
     app: consumer-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: consumer-deployment
@@ -20,4 +21,4 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: BROKER_CONFIG
-              value: my-cluster-kafka-bootstrap:9092
+              value: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092

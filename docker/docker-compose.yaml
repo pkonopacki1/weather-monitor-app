@@ -2,12 +2,6 @@ services:
   producer:
     image: weather-app-producer
     build: ../weather-monitor-app-producer/
-    environment:
-      WEATHER_API_KEY: ${WEATHER_API_KEY}
-      BROKER_CONFIG: ${BROKER_CONFIG}
-
   consumer:
     image: weather-app-consumer
     build: ../weather-monitor-app-consumer/
-    environment:
-      BROKER_CONFIG: ${BROKER_CONFIG}

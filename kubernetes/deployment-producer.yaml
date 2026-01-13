@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: producer-deployment
+  namespace: weather
   labels:
     app: producer-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: producer-deployment
@@ -20,6 +21,6 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: WEATHER_API_KEY
-              value:
+              value: 591ebbc4413a484a91f72923260601
             - name: BROKER_CONFIG
-              value: my-cluster-kafka-bootstrap:9092
+              value: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
