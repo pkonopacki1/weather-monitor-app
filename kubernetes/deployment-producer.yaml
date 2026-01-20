@@ -21,6 +21,6 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: WEATHER_API_KEY
-              value: 591ebbc4413a484a91f72923260601
+              value:
             - name: BROKER_CONFIG
               value: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092

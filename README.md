@@ -25,19 +25,3 @@ Prerequisites:
 
 This will create deployments: producer and consumer. Use chosen tool (k9s or kctl) to see the consumer logs to confirm
 that the messages are being consumed.
-
-## Running locally (e.g. for debugging)
-
-1. Create kafka broker:
-   `docker compose up -d broker`
-2. Create topic:
-
-  ```shell
-  docker exec -it broker /opt/kafka/bin/kafka-topics.sh \
---create \
---topic weather.report \
---bootstrap-server broker:9092 \
---partitions 3
-  ```
-
-3. Run the applications
