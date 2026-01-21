@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.konopackipio1.rest.model.WeatherResponse;
 
@@ -24,17 +24,22 @@ public class WeatherApiClientTest {
   @RestClient
   WeatherApiClient mock;
 
-  @BeforeEach
-  public void setUp() throws StreamReadException, DatabindException, IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    WeatherResponse weatherResponse = objectMapper.readValue(
-        getClass().getClassLoader().getResourceAsStream("getCurrentResponseExample.json"),
-        WeatherResponse.class);
-    when(mock.getWeather(anyString())).thenReturn(weatherResponse);
-  }
+  ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  void testGetWeather() {
+  void testGetWeather() throws StreamReadException, DatabindException, IOException {
+    // Arrange
+    when(mock.getWeather(anyString())).thenReturn(readWeatherResponseFromFile("getCurrentResponseExample.json"));
 
+    // Act
+    var response = mock.getWeather("Szczecin");
+
+    // Assert
+    Assertions.assertEquals(response.location().name(), "Szczecin");
+  }
+
+  private WeatherResponse readWeatherResponseFromFile(String filename)
+      throws StreamReadException, DatabindException, IOException {
+    return objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(filename), WeatherResponse.class);
   }
 }
