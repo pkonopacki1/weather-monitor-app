@@ -1,7 +1,6 @@
 package org.konopackipio1.rest;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.konopackipio1.rest.model.WeatherResponse;
 
 import io.quarkus.rest.client.reactive.ClientQueryParam;
 import jakarta.ws.rs.GET;
