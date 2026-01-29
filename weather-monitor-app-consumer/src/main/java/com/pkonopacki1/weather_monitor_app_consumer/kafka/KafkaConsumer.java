@@ -17,7 +17,7 @@ public class KafkaConsumer {
 
   static final Map<String, Double> cityPrecipitation = new ConcurrentHashMap<>();
 
-  @KafkaListener(id = "weatherConsumerGroup", topics = "weather.report")
+  @KafkaListener(id = "weatherConsumerGroup", topics = "weather-raw")
   public void listen(ConsumerRecord<String, WeatherResponse> record) {
     double currentPrecip = record.value().getCurrent().getPrecip_mm();
     String city = record.key();

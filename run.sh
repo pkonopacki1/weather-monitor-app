@@ -2,7 +2,7 @@
 
 echo "📝 Script starts..."
 echo "📝 Package consumer application..."
-cd weather-monitor-app-consumer
+cd weather-consumer-app
 mvn clean package -q -DskipTests
 echo "✅ Done!"
 echo "📝 Package producer application..."
@@ -18,7 +18,7 @@ minikube start --nodes=1
 minikube image load weather-producer-app
 echo "✅ Done!"
 echo "📝Loading consumer image to minikube..."
-minikube image load weather-app-consumer
+minikube image load weather-consumer-app
 echo "✅ Done!"
 echo "📝Installing kafka server on the kubernetes cluster..."
 kubectl create namespace kafka

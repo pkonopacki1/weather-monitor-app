@@ -6,5 +6,7 @@ services:
       dockerfile: src/main/docker/Dockerfile.jvm
 
   consumer:
-    image: weather-app-consumer
-    build: ../weather-monitor-app-consumer/
+    image: weather-consumer-app
+    build:
+      context: ../weather-consumer-app
+      dockerfile: src/main/docker/Dockerfile.jvm
