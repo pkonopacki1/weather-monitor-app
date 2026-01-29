@@ -33,10 +33,21 @@ public class WeatherProducer {
     return Multi.createFrom().ticks().every(Duration.ofSeconds(producePeriodSeconds))
         .map(tick -> {
           String city = cities.get(new Random().nextInt(cities.size()));
-          WeatherResponse newWeatherResponse = weatherApiClient.getWeather(city);
-          logger.info("Received information for {}", newWeatherResponse.location().name());
-          return newWeatherResponse;
-        });
+          try {
+            WeatherResponse newWeatherResponse = weatherApiClient.getWeather(city);
+            logger.info("Received information for {}, will send the message.", newWeatherResponse.location().name());
+            return newWeatherResponse;
+          } catch (Exception e) {
+            logger.error("Failed to fetch weather for {}: {}", city, e.getMessage());
+            return null;
+          }
+        })
+        .filter(weatherResponse -> weatherResponse != null)
+        .onFailure().invoke(e -> logger.error("Kafka/send pipeline failure: {}",
+            e.getMessage()))
+        .onFailure().retry().withBackOff(Duration.ofSeconds(1),
+            Duration.ofSeconds(10))
+        .atMost(5);
   }
 
 }
