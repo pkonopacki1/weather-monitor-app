@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: consumer-app
-          image: weather-app-consumer
+          image: weather-consumer-app
           imagePullPolicy: IfNotPresent
           env:
             - name: BROKER_CONFIG

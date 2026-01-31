@@ -1,7 +1,12 @@
 services:
   producer:
-    image: weather-app-producer
-    build: ../weather-monitor-app-producer/
+    image: weather-producer-app
+    build:
+      context: ../weather-producer-app
+      dockerfile: src/main/docker/Dockerfile.jvm
+
   consumer:
-    image: weather-app-consumer
-    build: ../weather-monitor-app-consumer/
+    image: weather-consumer-app
+    build:
+      context: ../weather-consumer-app
+      dockerfile: src/main/docker/Dockerfile.jvm

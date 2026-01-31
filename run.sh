@@ -2,12 +2,12 @@
 
 echo "📝 Script starts..."
 echo "📝 Package consumer application..."
-cd weather-monitor-app-consumer
-mvn clean package -q
+cd weather-consumer-app
+mvn clean package -q -DskipTests
 echo "✅ Done!"
-echo "📝 Package produicer application..."
-cd ../weather-monitor-app-producer
-mvn clean package -q
+echo "📝 Package producer application..."
+cd ../weather-producer-app
+mvn clean package -q -DskipTests
 echo "✅ Done!"
 cd ../docker
 echo "📝 Building docker images..."
@@ -15,10 +15,10 @@ docker compose build
 echo "✅ Done!"
 echo "📝 Strarting minikube cluster..."
 minikube start --nodes=1
-minikube image load weather-app-producer
+minikube image load weather-producer-app
 echo "✅ Done!"
 echo "📝Loading consumer image to minikube..."
-minikube image load weather-app-consumer
+minikube image load weather-consumer-app
 echo "✅ Done!"
 echo "📝Installing kafka server on the kubernetes cluster..."
 kubectl create namespace kafka
@@ -27,6 +27,7 @@ cd ../kubernetes
 kubectl apply -f kafka-single-node.yaml
 echo "✅ Kafka cluster installed!"
 kubectl create namespace weather
+kubectl create secret generic weather-secrets --from-literal=weather_api_key="$WEATHER_API_KEY" -n weather
 kubectl apply -f deployment-producer.yaml
 kubectl apply -f deployment-consumer.yaml
 echo "✅ Consumer and prodcuer applications installed to the K8s cluster!"

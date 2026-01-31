@@ -1,8 +1,0 @@
-spring:
-  kafka:
-    bootstrap-servers: ${BROKER_CONFIG:http://localhost:9092}
-    consumer:
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: weahter-app-consumer
-      properties:
-        spring.json.trusted.packages: "*"
