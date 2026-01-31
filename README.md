@@ -1,7 +1,6 @@
 # Weather Monitor App
 
 Application monitoring weather in a given city.
-
 > IMPORTANT
 > This is a test application created to help in the process of *Kubernetes* learning.
 
@@ -26,5 +25,6 @@ Prerequisites:
 This will create deployments: producer and consumer. Use chosen tool (k9s or kctl), select 'weather' namespace and see
 the consumer logs to confirm that the messages are being consumed.
 
-##
+## Cleanup
 
+Run `./cleaups.sh` to clean up the resources.
