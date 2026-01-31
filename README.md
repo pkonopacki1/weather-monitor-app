@@ -15,13 +15,16 @@ Prerequisites:
 
 - docker
 - minikube
-- kubernetes and helm
+- kubernetes and helm (I use [Strimzi](https://strimzi.io/) for the Kafka cluster)
 - mvn
 - api key for [weather api](https://www.weatherapi.com/my/)
 
-1. Set WEATHER_API_KEY in the `kubernetes/deployment-producer.yaml`
+1. Export WEATHER_API_KEY environemnt variable, it will be used to create a secret in Kubernetes.
 2. Run the script:
    `./run.sh`
 
-This will create deployments: producer and consumer. Use chosen tool (k9s or kctl) to see the consumer logs to confirm
-that the messages are being consumed.
+This will create deployments: producer and consumer. Use chosen tool (k9s or kctl), select 'weather' namespace and see
+the consumer logs to confirm that the messages are being consumed.
+
+##
+
